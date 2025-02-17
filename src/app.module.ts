@@ -11,11 +11,8 @@ import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import {Post} from "./posts/posts.model";
 
-//@Module - декоратор (обёртка, которая добавляет классу или функции новый функционал)
 @Module({
     controllers: [],
-    //провайдером может быть реализован любой переиспользованный компонент
-    //крч всё что содержит логичку и может использоваться в других компонентах
     providers: [],
     imports:[
         ConfigModule.forRoot({
