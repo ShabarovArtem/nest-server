@@ -1,4 +1,3 @@
-//nest generate module posts
 import {Injectable} from '@nestjs/common';
 import {CreatePostDto} from "./dto/create-post.dto";
 import {InjectModel} from "@nestjs/sequelize";
