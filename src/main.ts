@@ -9,21 +9,14 @@ import {ValidationPipe} from "@nestjs/common";
 
 async function start() {
     const PORT = process.env.PORT || 5000;
-    //NestFactory.create() — это метод, используемый для создания экземпляра приложения
-    //Метод create класса NestFactory инициализирует приложение и возвращает его экземпляр.
-    //В типичном использовании вы передаете корневой модуль вашего приложения в качестве аргумента для метода create.
     const app = await NestFactory.create((AppModule));
 
-    //npm i @nestjs/swagger swagger-ui-express
-    //Builder такой патерн, который постепенно позволяет
-    //для объекта задавать параметры
     const config = new DocumentBuilder()
         .setTitle('Урок по продвинотому BACKEND')
         .setDescription('Документация по REST API')
         .setVersion('1.0.0')
         .addTag('ULBI TV')
         .build()
-    //объект самой документации
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('/api/docs', app, document);
 
