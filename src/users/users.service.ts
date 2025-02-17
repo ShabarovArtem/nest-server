@@ -1,4 +1,3 @@
-//создали набрав:nest generate service users
 import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {User} from "./users.model";
 import {Repository} from "sequelize-typescript";
@@ -12,31 +11,22 @@ import {BanUserDto} from "./dto/ban-user.dto";
 
 @Injectable()
 export class UsersService {
-// создаём модель userRepository
     constructor(@InjectModel(User) private userRepository: typeof User,
-                //чтобы изначально пользователь обладал какой-то ролью, мы добавим RolesService и изменим createUser
-                //чтобы работало, нужно в users.module добавить RolesModule
                 private roleService: RolesService) {}
 
-    //создаёт пользователя
     async createUser(dto: CreateUserDto) {
         const user = await this.userRepository.create(dto);
         const role = await this.roleService.getRoleByValue("ADMIN")
         user.roles = [role]
-        //указываем что роль принадлежит пользователю
-        //метод $set() позволяет перезаписать поле и сразу обновить его внутри базы данных
         await user.$set('roles', [role.id])
         return user;
     }
 
-    //достаёт всех пользоваелей
     async getAllUsers() {
-        //include: [{all: true}  все указанные поля будут подтягиваться
         const users = await this.userRepository.findAll({include: [{all: true}]});
         return users;
     }
 
-    //проверка
     async getUserByEmail(email: string) {
         const user = await this.userRepository.findOne({where: {email}, include: [{all: true}]});
         return user;
