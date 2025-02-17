@@ -12,9 +12,6 @@ export class RolesController {
     }
 
     @Get('/:value')
-    //будет динамически изменяющийся участок пути. в котором value будем добавлять
-    //чтобы value вытащить необходим @Param, в который передаём название динамически
-    //изменя.щегося участка пути
     getByValue(@Param('value') value: string) {
         return this.roleService.getRoleByValue(value);
     }
