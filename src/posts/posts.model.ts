@@ -4,7 +4,6 @@ import {Role} from "../roles/roles.model";
 import {UserRoles} from "../roles/user-roles.model";
 import {User} from "../users/users.model";
 
-//необходим для создания объекта класса User
 interface PostCreationAttrs {
     title: string;
     content: string;
@@ -12,7 +11,6 @@ interface PostCreationAttrs {
     image: string;
 }
 
-//Чтобы класс стал таблицей помечаем его @Table, tableName: её название
 @Table({tableName: 'post'})
 export class Post extends Model<Post, PostCreationAttrs> {
     @Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
@@ -29,8 +27,6 @@ export class Post extends Model<Post, PostCreationAttrs> {
     @ForeignKey(() => User)
     @Column({type: DataType.INTEGER})
     userId:number;
-//тк рльзователь может обладать множеством постов, связь будет один ко многим
-    //тк пост принадлежит конретному пользователю
     @BelongsTo(() => User)
     author: User
 }
