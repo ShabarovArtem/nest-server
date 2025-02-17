@@ -1,4 +1,3 @@
-//nest generate service auth
 import {Body, HttpException, HttpStatus, Injectable, Post, UnauthorizedException} from '@nestjs/common';
 import {CreateUserDto} from "../users/dto/create-user.dto";
 import {UsersService} from "../users/users.service";
@@ -25,13 +24,10 @@ export class AuthService {
             throw new HttpException("Пользователь с таким email существует", HttpStatus.BAD_REQUEST);
         }
         const hashPassword = await bcrypt.hash(userDto.password, 5);
-        //перезаписываем хешированный пароль
         const user = await this.userService.createUser({...userDto, password: hashPassword});
         return this.generateToken(user);
     }
 
-    //функция generateToken параметром принимает пользователя,
-    // на основе его данных генерирует jwttoken
     private async generateToken(user: User) {
         const payload = {email: user.email, id: user.id, roles: user.roles};
         return {
@@ -41,7 +37,6 @@ export class AuthService {
 
     private async validateUser(userDto: CreateUserDto) {
         const user = await this.userService.getUserByEmail(userDto.email);
-        //проверка сходяться ли пароли
         const passwordEquals = await bcrypt.compare(userDto.password, user.password);
         if (user && passwordEquals) {
             return user;
