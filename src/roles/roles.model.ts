@@ -15,7 +15,7 @@ export class Role extends Model<Role, RoleCreationAttrs> {
     id: number;
 
     @ApiProperty({example: 'ADMIN', description: 'Уникальное значение роли'})
-    @Column({type: DataType.STRING, unique: true, allowNull: false}) //allowNull может ли быть не указанным
+    @Column({type: DataType.STRING, unique: true, allowNull: false}) 
     value: string;
 
     @ApiProperty({example: 'Администратор', description: 'Описание роли'})
