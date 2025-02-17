@@ -1,4 +1,3 @@
-//создали набрав:nest generate controller users
 import {Body, Controller, Get, Post, UseGuards, UsePipes, ValidationPipe} from '@nestjs/common';
 import {CreateUserDto} from "./dto/create-user.dto";
 import {UsersService} from "./users.service";
@@ -11,8 +10,6 @@ import {RolesGuard} from "../auth/roles.guard";
 import {AddRoleDto} from "./dto/add-role.dto";
 import {BanUserDto} from "./dto/ban-user.dto";
 
-
-//контролеров может быть несколько, поэтому пометим его декоратором @ApiTags
 @ApiTags('Пользователи')
 @Controller('users')
 export class UsersController {
